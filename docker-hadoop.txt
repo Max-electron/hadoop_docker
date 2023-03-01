@@ -1,0 +1,32 @@
+###DOCKER-HADOOP
+
+если что-то раньше было установлено
+
+yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine -y
+
+yum remove docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+
+wget https://download.docker.com/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo  #добавляем репу docker
+
+yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y  #ставим пакеты
+
+systemctl start docker && systemctl status docker
+
+если нет curl - yum install curl
+
+curl -SL https://github.com/docker/compose/releases/download/v2.14.0/docker-compose-linux-x86_64 -o /usr/local/bin/docker-compose  ##ставим docker-compose
+ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+если нет git - yum install git
+
+git clone https://github.com/big-data-europe/docker-hadoop.git
+
+cd docker-hadoop
+
+docker-compose up
+
+копирование файла в hdfs
+
+docker cp /path/to/file namenode:/
+docker exec -it namenode /bin/bash
+hdfs dfs -put /path/to/file /куда
